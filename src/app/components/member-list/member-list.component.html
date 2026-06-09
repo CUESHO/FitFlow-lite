@@ -1,0 +1,27 @@
+<div class="table-container">
+  <table class="neon-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Plan</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of miembros">
+        <td>{{ m.id }}</td>
+        <td>{{ m.nombre }}</td>
+        <td>{{ m.email }}</td>
+        <td>{{ m.plan }}</td>
+        <td>{{ m.estado }}</td>
+        <td>
+          <button class="btn-neon-small">Editar</button>
+          <button class="btn-neon-danger-small">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
