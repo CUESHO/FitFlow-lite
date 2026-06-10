@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-color: #121212;
+  --card-bg: #1e1e1e;
+  --text-main: #ffffff;
+  --neon-green: #39ff14;
+  --neon-red: #ff3939;
+}
+body, html {
+  margin: 0; padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color); color: var(--text-main);
+}
+.app-container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+.navbar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--neon-green); padding-bottom: 15px; margin-bottom: 30px; }
+.navbar h1 { margin: 0; color: var(--neon-green); }
+.card { background-color: var(--card-bg); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.btn-neon { background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+.btn-neon:hover { background: var(--neon-green); color: var(--bg-color); box-shadow: 0 0 10px var(--neon-green); }
+.btn-neon-danger { background: transparent; color: var(--neon-red); border: 1px solid var(--neon-red); padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+.btn-neon-danger:hover { background: var(--neon-red); color: var(--bg-color); box-shadow: 0 0 10px var(--neon-red); }

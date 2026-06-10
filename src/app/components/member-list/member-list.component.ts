@@ -16,10 +16,19 @@ export class MemberListComponent implements OnInit {
   constructor(private apiService: FitflowApiService) {}
 
   ngOnInit() {
-    // Datos de prueba para que Abel vea el diseño hoy. 
-    this.miembros = [
-      { id: 1, nombre: 'Usuario Prueba', email: 'test@fitflow.com', plan: 'Premium', estado: 'Activo' },
-      { id: 2, nombre: 'Cliente Básico', email: 'basico@fitflow.com', plan: 'Básico', estado: 'Inactivo' }
-    ];
+    // Mandamos llamar a Flask en cuanto el componente cargue
+    this.cargarMiembros();
+  }
+
+  cargarMiembros() {
+    this.apiService.getMembers().subscribe({
+      next: (datosDelBackend) => {
+        this.miembros = datosDelBackend;
+        console.log('Conexión exitosa. Datos de Flask:', datosDelBackend);
+      },
+      error: (error) => {
+        console.error('Error al conectar con Flask. ¿El servidor está prendido?', error);
+      }
+    });
   }
 }
