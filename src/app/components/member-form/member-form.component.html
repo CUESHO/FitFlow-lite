@@ -1,1 +1,36 @@
-<p>member-form works!</p>
+<div class="form-container">
+  <form (ngSubmit)="guardarMiembro()" #memberForm="ngForm" class="neon-form">
+    
+    <div class="form-group">
+      <label>Nombre Completo:</label>
+      <input type="text" [(ngModel)]="nuevoMiembro.nombre" name="nombre" required class="neon-input" placeholder="Ej. Aaron">
+    </div>
+    
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" [(ngModel)]="nuevoMiembro.email" name="email" required class="neon-input" placeholder="correo@fitflow.com">
+    </div>
+
+    <div class="form-group">
+      <label>Plan de Entrenamiento:</label>
+      <select [(ngModel)]="nuevoMiembro.plan" name="plan" class="neon-input">
+        <option value="Básico">Básico</option>
+        <option value="Premium">Premium</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Estado Inicial:</label>
+      <select [(ngModel)]="nuevoMiembro.estado" name="estado" class="neon-input">
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="!memberForm.valid" class="btn-neon">Guardar Miembro</button>
+      <button type="button" class="btn-neon-danger" (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+</div>
