@@ -15,12 +15,12 @@
     
     <div *ngIf="vistaActual === 'lista'" class="card">
       <h2>Miembros Activos</h2>
-      <app-member-list></app-member-list>
+      <app-member-list (editarMiembro)="cambiarVista('formulario', $event)"></app-member-list>
     </div>
 
     <div *ngIf="vistaActual === 'formulario'" class="card">
       <h2>Gestión de Miembro</h2>
-      <app-member-form (volver)="cambiarVista('lista')"></app-member-form>
+      <app-member-form [miembroAEditar]="miembroSeleccionado" (volver)="cambiarVista('lista')"></app-member-form>
     </div>
 
   </main>

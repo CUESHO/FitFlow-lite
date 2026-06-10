@@ -13,9 +13,13 @@ import { MemberFormComponent } from './components/member-form/member-form.compon
 
 export class AppComponent {
   title = 'FitFlow Lite - Gestión';
-  vistaActual: 'lista' | 'formulario' = 'lista'; // Controlador de vistas
+  vistaActual: 'lista' | 'formulario' = 'lista';
+  
+  // Aquí guardamos temporalmente el miembro si le dimos click a "Editar"
+  miembroSeleccionado: any = null; 
 
-  cambiarVista(vista: 'lista' | 'formulario') {
+  cambiarVista(vista: 'lista' | 'formulario', miembro: any = null) {
+    this.miembroSeleccionado = miembro; // Guardamos los datos (o null si es uno nuevo)
     this.vistaActual = vista;
   }
 }

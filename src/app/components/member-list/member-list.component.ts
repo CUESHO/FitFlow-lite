@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FitflowApiService } from '../../services/fitflow-api.service';
 import { Member } from '../../models/member.model';
@@ -12,23 +12,29 @@ import { Member } from '../../models/member.model';
 })
 export class MemberListComponent implements OnInit {
   miembros: Member[] = [];
+  
+  // Este evento "grita" hacia afuera qué miembro queremos editar
+  @Output() editarMiembro = new EventEmitter<Member>(); 
 
   constructor(private apiService: FitflowApiService) {}
 
   ngOnInit() {
-    // Mandamos llamar a Flask en cuanto el componente cargue
     this.cargarMiembros();
   }
 
   cargarMiembros() {
     this.apiService.getMembers().subscribe({
-      next: (datosDelBackend) => {
-        this.miembros = datosDelBackend;
-        console.log('Conexión exitosa. Datos de Flask:', datosDelBackend);
-      },
-      error: (error) => {
-        console.error('Error al conectar con Flask. ¿El servidor está prendido?', error);
-      }
+      next: (datos) => this.miembros = datos,
+      error: (err) => console.error(err)
     });
+  }
+
+  borrarMiembro(id: number | undefined) {
+    if (id && confirm('⚡ ¿Estás seguro de eliminar a este miembro de FitFlow?')) {
+      this.apiService.deleteMember(id).subscribe({
+        next: () => this.cargarMiembros(), // Recarga la tabla mágicamente
+        error: (err) => console.error('Error al borrar', err)
+      });
+    }
   }
 }

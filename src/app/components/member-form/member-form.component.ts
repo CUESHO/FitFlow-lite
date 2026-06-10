@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- Clave para usar formularios
+import { FormsModule } from '@angular/forms';
 import { FitflowApiService } from '../../services/fitflow-api.service';
 import { Member } from '../../models/member.model';
 
@@ -8,33 +8,44 @@ import { Member } from '../../models/member.model';
   selector: 'app-member-form',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './member-form.component.html', // Regresamos al HTML externo
-  styleUrls: ['./member-form.component.css']   // Regresamos al CSS externo
+  templateUrl: './member-form.component.html',
+  styleUrls: ['./member-form.component.css']
 })
-export class MemberFormComponent {
-  // Este evento le avisa al app.component que ya terminamos aquí
+export class MemberFormComponent implements OnInit {
+  // Recibe los datos desde app.component
+  @Input() miembroAEditar: Member | null = null; 
   @Output() volver = new EventEmitter<void>();
 
-  nuevoMiembro: Member = {
-    nombre: '',
-    email: '',
-    plan: 'Básico',
-    estado: 'Activo'
-  };
+  nuevoMiembro: Member = { nombre: '', email: '', plan: 'Básico', estado: 'Activo' };
+  esEdicion = false;
 
   constructor(private apiService: FitflowApiService) {}
 
+  ngOnInit() {
+    // Si entró un miembro a editar, rellenamos el formulario
+    if (this.miembroAEditar) {
+      this.nuevoMiembro = { ...this.miembroAEditar }; // Clonamos para no editar en vivo
+      this.esEdicion = true;
+    }
+  }
+
   guardarMiembro() {
-    this.apiService.createMember(this.nuevoMiembro).subscribe({
-      next: (res) => {
-        console.log('Guardado en Flask:', res);
-        this.volver.emit(); // Regresa a la tabla automáticamente
-      },
-      error: (err) => console.error('Error al guardar', err)
-    });
+    if (this.esEdicion && this.nuevoMiembro.id) {
+      // UPDATE: Petición PUT
+      this.apiService.updateMember(this.nuevoMiembro.id, this.nuevoMiembro).subscribe({
+        next: () => this.volver.emit(),
+        error: (err) => console.error(err)
+      });
+    } else {
+      // CREATE: Petición POST
+      this.apiService.createMember(this.nuevoMiembro).subscribe({
+        next: () => this.volver.emit(),
+        error: (err) => console.error(err)
+      });
+    }
   }
 
   cancelar() {
-    this.volver.emit(); // Regresa a la tabla sin guardar nada
+    this.volver.emit();
   }
 }

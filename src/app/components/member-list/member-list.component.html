@@ -18,8 +18,8 @@
         <td>{{ m.plan }}</td>
         <td>{{ m.estado }}</td>
         <td>
-          <button class="btn-neon-small">Editar</button>
-          <button class="btn-neon-danger-small">Borrar</button>
+          <button class="btn-neon-small" (click)="editarMiembro.emit(m)">Editar</button>
+          <button class="btn-neon-danger-small" (click)="borrarMiembro(m.id)">Borrar</button>
         </td>
       </tr>
     </tbody>
