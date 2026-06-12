@@ -7,7 +7,7 @@ import { Member } from '../models/member.model';
   providedIn: 'root'
 })
 export class FitflowApiService {
-  // Aquí apuntaremos al servidor Flask que haremos después
+  // Aquí apuntamos al servidor Flask
   private apiUrl = 'http://localhost:5000/api/miembros'; 
 
   constructor(private http: HttpClient) { }

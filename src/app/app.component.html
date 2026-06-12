@@ -20,6 +20,7 @@
 
     <div *ngIf="vistaActual === 'formulario'" class="card">
       <h2>Gestión de Miembro</h2>
+      <!-- Visualizacion de la regresion de la pagina / Evento Padre-->
       <app-member-form [miembroAEditar]="miembroSeleccionado" (volver)="cambiarVista('lista')"></app-member-form>
     </div>
 

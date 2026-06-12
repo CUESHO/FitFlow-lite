@@ -22,13 +22,14 @@ export class MemberListComponent implements OnInit {
     this.cargarMiembros();
   }
 
+  // READ 
   cargarMiembros() {
     this.apiService.getMembers().subscribe({
       next: (datos) => this.miembros = datos,
       error: (err) => console.error(err)
     });
   }
-
+//DELETE
   borrarMiembro(id: number | undefined) {
     if (id && confirm('⚡ ¿Estás seguro de eliminar a este miembro de FitFlow?')) {
       this.apiService.deleteMember(id).subscribe({

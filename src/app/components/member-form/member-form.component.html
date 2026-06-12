@@ -1,15 +1,8 @@
 <div class="form-container">
   <form (ngSubmit)="guardarMiembro()" #memberForm="ngForm" class="neon-form">
     
-    <div class="form-group">
-      <label>Nombre Completo:</label>
-      <input type="text" [(ngModel)]="nuevoMiembro.nombre" name="nombre" required class="neon-input" placeholder="Ej. Aaron">
-    </div>
-    
-    <div class="form-group">
-      <label>Email:</label>
-      <input type="email" [(ngModel)]="nuevoMiembro.email" name="email" required class="neon-input" placeholder="correo@fitflow.com">
-    </div>
+    <app-neon-input label="Nombre Completo:" placeholder="Ej. Juan Carlos" [(valor)]="nuevoMiembro.nombre"></app-neon-input>
+    <app-neon-input label="Email:" type="email" placeholder="correo@fitflow.com" [(valor)]="nuevoMiembro.email"></app-neon-input>
 
     <div class="form-group">
       <label>Plan de Entrenamiento:</label>
@@ -27,10 +20,14 @@
       </select>
     </div>
 
-    <div class="form-actions">
-      <button type="submit" [disabled]="!memberForm.valid" class="btn-neon">
+    <div class="form-actions" style="display: flex; gap: 15px; margin-top: 20px;">
+      <app-neon-button type="submit" [disabled]="!nuevoMiembro.nombre || !nuevoMiembro.email">
         {{ esEdicion ? 'Actualizar' : 'Guardar' }} Miembro
-      </button>
+      </app-neon-button>
+      
+      <app-neon-button color="red" (accion)="cancelar()">
+        Cancelar
+      </app-neon-button>
     </div>
 
   </form>

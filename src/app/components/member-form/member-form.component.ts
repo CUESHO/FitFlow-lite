@@ -4,16 +4,22 @@ import { FormsModule } from '@angular/forms';
 import { FitflowApiService } from '../../services/fitflow-api.service';
 import { Member } from '../../models/member.model';
 
+// 1. Aquí le decimos a TypeScript en qué carpeta están tus nuevos componentes UI
+import { NeonInputComponent } from '../ui/neon-input/neon-input.component';
+import { NeonButtonComponent } from '../ui/neon-button/neon-button.component';
+
 @Component({
   selector: 'app-member-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  // 2. Y AQUÍ es donde va el arreglo de imports, adentro del decorador @Component
+  imports: [CommonModule, FormsModule, NeonInputComponent, NeonButtonComponent],
   templateUrl: './member-form.component.html',
   styleUrls: ['./member-form.component.css']
 })
 export class MemberFormComponent implements OnInit {
   // Recibe los datos desde app.component
   @Input() miembroAEditar: Member | null = null; 
+  // Evento Hijo
   @Output() volver = new EventEmitter<void>();
 
   nuevoMiembro: Member = { nombre: '', email: '', plan: 'Básico', estado: 'Activo' };
@@ -46,6 +52,6 @@ export class MemberFormComponent implements OnInit {
   }
 
   cancelar() {
-    this.volver.emit();
+    this.volver.emit(); // Cuando el usuario da clic en cancelar o guardar
   }
 }
